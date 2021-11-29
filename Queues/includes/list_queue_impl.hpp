@@ -71,7 +71,14 @@ void Queue<T>::push(T el) {
 
 template <typename T>
 T Queue<T>::pop() {
-  if (counter_ > 0) {
+  if (counter_ == 1) {
+    T ret = head_->elem;
+    delete head_;
+    head_ = nullptr;
+    tail_ = nullptr;
+    counter_ = 0;
+    return ret;
+  } else if (counter_ > 1) {
     T ret = head_->elem;
     node<T>* tmp = head_;
     head_ = head_->next;
@@ -79,7 +86,7 @@ T Queue<T>::pop() {
     counter_--;
     return ret;
   } else {
-    return 0;
+    exit(-1);
   }
 }
 

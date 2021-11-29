@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16.3)
-project(Queues_tests VERSION 1.0.0 LANGUAGES CXX)
+project(Tests_for_Queues VERSION 1.0.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDART 20)
 
 set(EXEC_FILE tests_for_queues)
