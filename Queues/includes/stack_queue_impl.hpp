@@ -2,7 +2,6 @@
 #define QUEUES_INCLUDES_STACK_QUEUE_IMPL
 
 #include <cassert>
-#include <iostream>  ///////////////////////////////////////////////
 
 #include "stack_queue.hpp"
 
