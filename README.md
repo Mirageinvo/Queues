@@ -22,7 +22,7 @@ cmake -DLIST_IMPL=1 .. && make
 \\to run tests for chosen queue implementation:\\
 make run_tests_for_queues
 
-\\to run Google Benchmark for either queue implementations:\\
+\\to run Google Benchmark for either queue implementations(if only Google Benchmark is installed):\\
 make run_queues_benchmark
 
 \\to use clang format for all *.cpp and *hpp files:\\
