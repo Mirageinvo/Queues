@@ -80,12 +80,40 @@ bool Queue<T>::is_empty() const {
     return (counter_ == 0) ? true : false;
 }
 
+template<typename T>
+bool Queue<T>::operator==(const Queue<T>& another) const {
+    if (counter_ != another.counter_) {
+        return false;
+    }
+    return st1_ == another.st1_ && st2_ == another.st2_;
+}
 
+template<typename T>
+bool Queue<T>::operator!=(const Queue<T>& another) const {
+    return !(*this == another);
+}
 
+template<typename T>
+Queue<T>& Queue<T>::operator=(const Queue<T>& another) {
+    if (this == &another) {
+        return *this;
+    }
+    st1_ = another.st1_;
+    st2_ = another.st2_;
+    counter_ = another.counter_;
+    return *this;
+}
 
-
-
+template<typename T>
+Queue<T>& Queue<T>::operator=(Queue<T>&& another) noexcept {
+    if (this == &another) {
+        return *this;
+    }
+    st1_ = std::move(another.st1_);
+    st2_ = std::move(another.st2_);
+    counter_ = another.counter_;
+    return *this;
+}
 
 } //namespace stack_queue
-
 #endif //QUEUES_INCLUDES_STACK_QUEUE_IMPL

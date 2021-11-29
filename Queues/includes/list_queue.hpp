@@ -6,7 +6,7 @@ namespace list_queue {
   template<typename T>
   struct node {
     T elem;
-    node* next;
+    node<T>* next;
   };
 
   template<typename T>
@@ -31,8 +31,8 @@ namespace list_queue {
 
       private:
         size_t counter_;
-        node* head_;
-        node* tail_;
+        node<T>* head_;
+        node<T>* tail_;
   };
 
 } //namespace list_queue

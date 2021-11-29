@@ -2,23 +2,27 @@
 #define QUEUES_INCLUDES_LIST_QUEUE_IMPL
 
 #include <cassert>
+
 #include "list_queue.hpp"
 
 namespace list_queue {
 
 template<typename T>
-Queue<T>::Queue() : counter_(0), 
+Queue<T>::Queue() : counter_(0),
                     head_(nullptr),
-                    tail_(nullptr) {}
+                    tail_(nullptr) {
+    //head_ = new node<T>;
+    //tail_ = head_;
+}
 
 template<typename T>
 Queue<T>::Queue(const Queue<T>& another) : counter_(another.counter_) {
-    head_ = new node;
-    node* tmp = head_;
-    node* tmp_another = another.head_;
+    head_ = new node<T>;
+    node<T>* tmp = head_;
+    node<T>* tmp_another = another.head_;
     tmp->el = tmp_another->el;
     for (int i = 0; i < another.counter_ - 1; ++i) {
-        tmp->next = new node;
+        tmp->next = new node<T>;
         tmp = tmp->next;
         tmp_another = tmp_another->next;
         tmp->el = tmp_another->el;
@@ -38,28 +42,38 @@ Queue<T>::Queue(Queue<T>&& another) noexcept : counter_(another.counter_),
 
 template<typename T>
 Queue<T>::~Queue() {
-    node* nxt;
-    node* cur = head_;
-    while (cur->next != nullptr) {
-        nxt = cur->next;
+    if (head_ != nullptr) {
+        node<T>* nxt;
+        node<T>* cur = head_;
+        while (cur->next != nullptr) {
+            nxt = cur->next;
+            delete cur;
+            cur = nxt;
+        }
         delete cur;
-        cur = nxt;
     }
-    delete cur;
 }
 
 template<typename T>
 void Queue<T>::push(T el) {
-    if (tail_->next == nullptr) {
-        node* tmp = new node;
-        tmp->elem = el;
-        tail_->next = tmp;
-        tail_ = tmp;
-        tail_->next = nullptr;
+    if (is_empty()) {
+        head_ = new node<T>;
+        head_->elem = el;
+        head_->next = nullptr;
+        tail_ = head_;
     }
-    else {
-        tail_ = tail_->next;
-        tail_->elem = el;
+    else{
+        if (tail_->next == nullptr) {
+            node<T>* tmp = new node<T>;
+            tmp->elem = el;
+            tail_->next = tmp;
+            tail_ = tmp;
+            tail_->next = nullptr;
+        }
+        else {
+            tail_ = tail_->next;
+            tail_->elem = el;
+        }
     }
     counter_++;
 }
@@ -68,10 +82,10 @@ template<typename T>
 T Queue<T>::pop() {
     if (counter_ > 0) {
         T ret = head_->elem;
-        node* tmp = head_;
-        head_ = head->next;
+        node<T>* tmp = head_;
+        head_ = head_->next;
         delete tmp;
-        counter--;
+        counter_--;
         return ret;
     }
     else {
@@ -116,11 +130,11 @@ bool Queue<T>::operator==(const Queue<T>& another) const {
     if (counter_ != another.counter_) {
         return false;
     }
-    if (*this == another || tmpf.is_empty()) {
+    if (this == &another || counter_ == 0) {
         return true;
     }
-    node* tmpf = head_;
-    node* tmps = another.head_;
+    node<T>* tmpf = head_;
+    node<T>* tmps = another.head_;
     if (tmpf->elem != tmps->elem) {
         return false;
     }
@@ -145,12 +159,12 @@ Queue<T>& Queue<T>::operator=(const Queue<T>& another) {
         return *this;
     }
     head_->el = another.head->el;
-    node* tmpf = head_;
-    node* tmps = another.head_;
+    node<T>* tmpf = head_;
+    node<T>* tmps = another.head_;
     tmpf->elem = tmps->elem;
     while (tmps != another.tail_) {
         if (tmpf->next == nullptr) {
-            tmpf->next = new node;
+            tmpf->next = new node<T>;
         }
         tmpf = tmpf->next;
         tmps = tmps->next;
