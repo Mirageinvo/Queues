@@ -11,7 +11,7 @@ mkdir build && cd build/
 cmake -DSTACK_IMPL=1 .. && make
 
 \\to build test with single-linked-list-based queue:\\
-cmake -DLIST_IMPL .. && make
+cmake -DLIST_IMPL=1 .. && make
 
 \\to add sanitizers to tests:\\
 -DADD_SANITIZERS=1
