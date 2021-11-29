@@ -2,9 +2,6 @@
 #include "stack_queue_impl.hpp"
 #include "list_queue_impl.hpp"
 
-//#include "../Queues/includes/stack_queue_impl.hpp"
-//#include "../Queues/includes/list_queue_impl.hpp"
-
 #ifdef STACK_IMPL
 using namespace stack_queue;
 #endif
