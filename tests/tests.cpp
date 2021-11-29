@@ -147,6 +147,21 @@ TEST(IntQueue, EqCopyOperatorTest) {
   ASSERT_TRUE(q2.is_empty());
 }
 
+TEST(IntQueue, EqMoveOperatorTest) {
+  Queue<int> q1;
+  Queue<int> q2;
+  ASSERT_TRUE(q1 == q2);
+  for (int i = 0; i < kNum; ++i) {
+    q1.push(i);
+    ASSERT_EQ(q1.back(), i);
+  }
+  q2 = std::move(q1);
+  for (int i = 0; i < kNum; ++i) {
+    ASSERT_EQ(q2.pop(), i);
+  }
+  ASSERT_TRUE(q2.is_empty());
+}
+
 int main(int argc, char* argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
