@@ -2,6 +2,7 @@
 #define QUEUES_INCLUDES_STACK_QUEUE_IMPL
 
 #include <cassert>
+#include <iostream>  ///////////////////////////////////////////////
 
 #include "stack_queue.hpp"
 
@@ -12,17 +13,17 @@ Queue<T>::Queue() : counter_(0) {}
 
 template <typename T>
 Queue<T>::Queue(const Queue& another)
-    : counter_(another.counter_),
-      back_el_(another.back_el),
-      st1_(another.st1_),
-      st2_(another.st2_) {}
+    : counter_(another.counter_), back_el_(another.back_el_) {
+  st1_ = another.st1_;
+  st2_ = another.st2_;
+}
 
 template <typename T>
 Queue<T>::Queue(Queue&& another) noexcept
-    : counter_(another.counter_),
-      back_el_(another.back_el),
-      st1_(std::move(another.st1_)),
-      st2_(std::move(another.st2_)) {}
+    : counter_(another.counter_), back_el_(another.back_el_) {
+  st1_ = std::move(another.st1_);
+  st2_ = std::move(another.st2_);
+}
 
 template <typename T>
 void Queue<T>::move_to_st2() {
@@ -84,16 +85,36 @@ bool Queue<T>::is_empty() const {
 }
 
 template <typename T>
-bool Queue<T>::operator==(const Queue<T>& another) const {
+bool Queue<T>::operator==(Queue<T>& another) {
   if (counter_ != another.counter_) {
     return false;
   }
-  return st1_ == another.st1_ && st2_ == another.st2_ &&
-         back_el_ == another.back_el_;
+  if (counter_ == 0 || (st1_ == another.st1_ && st2_ == another.st2_ &&
+                        back_el_ == another.back_el_)) {
+    return true;
+  }
+  size_t tmp = counter_;
+  T* tmp1 = new T[tmp];
+  T* tmp2 = new T[tmp];
+  for (size_t i = 0; i < tmp; ++i) {
+    tmp1[i] = pop();
+    tmp2[i] = another.pop();
+    if (tmp1[i] != tmp2[i]) {
+      return false;
+    }
+  }
+  assert(is_empty() && another.is_empty());
+  for (size_t i = 0; i < tmp; ++i) {
+    push(tmp1[i]);
+    another.push(tmp2[i]);
+  }
+  delete[] tmp1;
+  delete[] tmp2;
+  return true;
 }
 
 template <typename T>
-bool Queue<T>::operator!=(const Queue<T>& another) const {
+bool Queue<T>::operator!=(Queue<T>& another) {
   return !(*this == another);
 }
 

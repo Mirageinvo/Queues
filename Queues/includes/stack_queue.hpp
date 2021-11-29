@@ -21,8 +21,8 @@ class Queue {
   size_t size() const;
   bool is_empty() const;
 
-  bool operator==(const Queue& another) const;
-  bool operator!=(const Queue& another) const;
+  bool operator==(Queue& another);
+  bool operator!=(Queue& another);
   Queue& operator=(const Queue& another);
   Queue& operator=(Queue&& another) noexcept;
 

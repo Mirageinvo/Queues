@@ -15,12 +15,12 @@ Queue<T>::Queue(const Queue<T>& another) : counter_(another.counter_) {
   head_ = new node<T>;
   node<T>* tmp = head_;
   node<T>* tmp_another = another.head_;
-  tmp->el = tmp_another->el;
-  for (int i = 0; i < another.counter_ - 1; ++i) {
+  tmp->elem = tmp_another->elem;
+  for (int i = 0; i < static_cast<int>(another.counter_) - 1; ++i) {
     tmp->next = new node<T>;
     tmp = tmp->next;
     tmp_another = tmp_another->next;
-    tmp->el = tmp_another->el;
+    tmp->elem = tmp_another->elem;
   }
   tail_ = tmp;
   tail_->next = nullptr;
@@ -126,7 +126,7 @@ bool Queue<T>::operator==(const Queue<T>& another) const {
   if (tmpf->elem != tmps->elem) {
     return false;
   }
-  for (int i = 0; i < counter_ - 1; ++i) {
+  for (int i = 0; i < static_cast<int>(counter_) - 1; ++i) {
     tmpf = tmpf->next;
     tmps = tmps->next;
     if (tmpf->elem != tmps->elem) {
@@ -146,13 +146,22 @@ Queue<T>& Queue<T>::operator=(const Queue<T>& another) {
   if (this == &another) {
     return *this;
   }
-  head_->el = another.head->el;
+  if (another.counter_ == 0 || another.head_ == nullptr) {
+    counter_ = 0;
+    tail_ = nullptr;
+    head_ = nullptr;
+  }
+  if (head_ == nullptr) {
+    head_ = new node<T>;
+    head_->next = nullptr;
+  }
+  head_->elem = another.head_->elem;
   node<T>* tmpf = head_;
   node<T>* tmps = another.head_;
-  tmpf->elem = tmps->elem;
   while (tmps != another.tail_) {
     if (tmpf->next == nullptr) {
       tmpf->next = new node<T>;
+      tmpf->next->next = nullptr;
     }
     tmpf = tmpf->next;
     tmps = tmps->next;

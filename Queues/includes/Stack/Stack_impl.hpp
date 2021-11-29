@@ -91,7 +91,7 @@ void Stack<T>::swap(Stack* another) {
 template <typename T>
 bool Stack<T>::operator==(const Stack<T>& another) const {
   if (counter_ != another.counter_) return false;
-  for (int i = 0; i < counter_; ++i) {
+  for (size_t i = 0; i < counter_; ++i) {
     if (data_[i] != another.data_[i]) {
       return false;
     }
