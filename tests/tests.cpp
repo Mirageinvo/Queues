@@ -67,6 +67,86 @@ TEST(IntQueue, FrontTest) {
   }
 }
 
+TEST(IntQueue, CopyConstrTest) {
+  Queue<int> q1;
+  for (int i = 0; i < kNum; ++i) {
+    q1.push(i);
+    ASSERT_EQ(q1.back(), i);
+  }
+  Queue<int> q2(q1);
+  for (int i = 0; i < kNum; ++i) {
+    ASSERT_EQ(q2.pop(), i);
+  }
+}
+
+TEST(IntQueue, MoveConstrTest) {
+  Queue<int> q1;
+  for (int i = 0; i < kNum; ++i) {
+    q1.push(i);
+    ASSERT_EQ(q1.back(), i);
+  }
+  Queue<int> q2(std::move(q1));
+  for (int i = 0; i < kNum; ++i) {
+    ASSERT_EQ(q2.pop(), i);
+  }
+}
+
+TEST(IntQueue, BoolEqOperatorTest) {
+  Queue<int> q1;
+  Queue<int> q2;
+  ASSERT_TRUE(q1 == q2);
+  for (int i = 0; i < kNum; ++i) {
+    q1.push(i);
+    ASSERT_EQ(q1.back(), i);
+    q2.push(i);
+    ASSERT_EQ(q2.back(), i);
+    if (i == 3) {
+      q1.pop();
+      q1.pop();
+    } else if (i == 50000) {
+      q2.pop();
+      q2.pop();
+    }
+  }
+  ASSERT_TRUE(q1 == q2);
+  q1.pop();
+  ASSERT_FALSE(q1 == q2);
+  q2.pop();
+  ASSERT_TRUE(q1 == q2);
+}
+
+TEST(IntQueue, BoolUneqOperatorTest) {
+  Queue<int> q1;
+  Queue<int> q2;
+  ASSERT_FALSE(q1 != q2);
+  for (int i = 0; i < kNum; ++i) {
+    q1.push(i);
+    ASSERT_EQ(q1.back(), i);
+    q2.push(i);
+    ASSERT_EQ(q2.back(), i);
+  }
+  ASSERT_FALSE(q1 != q2);
+  q1.pop();
+  ASSERT_TRUE(q1 != q2);
+  q2.pop();
+  ASSERT_FALSE(q1 != q2);
+}
+
+TEST(IntQueue, EqCopyOperatorTest) {
+  Queue<int> q1;
+  Queue<int> q2;
+  ASSERT_TRUE(q1 == q2);
+  for (int i = 0; i < kNum; ++i) {
+    q1.push(i);
+    ASSERT_EQ(q1.back(), i);
+  }
+  q2 = q1;
+  for (int i = 0; i < kNum; ++i) {
+    ASSERT_EQ(q2.pop(), i);
+  }
+  ASSERT_TRUE(q2.is_empty());
+}
+
 int main(int argc, char* argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
