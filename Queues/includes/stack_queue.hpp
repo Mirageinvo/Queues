@@ -28,10 +28,10 @@ class Queue {
 
  private:
   void move_to_st2();
-  Stack<T> st1_;
-  Stack<T> st2_;
   size_t counter_;
   T back_el_;
+  Stack<T> st1_;
+  Stack<T> st2_;
 };
 
 }  // namespace stack_queue

@@ -12,17 +12,17 @@ Queue<T>::Queue() : counter_(0) {}
 
 template <typename T>
 Queue<T>::Queue(const Queue& another)
-    : counter_(another.counter_), back_el_(another.back_el_) {
-  st1_ = another.st1_;
-  st2_ = another.st2_;
-}
+    : counter_(another.counter_),
+      back_el_(another.back_el_),
+      st1_(another.st1_),
+      st2_(another.st2_) {}
 
 template <typename T>
 Queue<T>::Queue(Queue&& another) noexcept
-    : counter_(another.counter_), back_el_(another.back_el_) {
-  st1_ = std::move(another.st1_);
-  st2_ = std::move(another.st2_);
-}
+    : counter_(another.counter_),
+      back_el_(another.back_el_),
+      st1_(std::move(another.st1_)),
+      st2_(std::move(another.st2_)) {}
 
 template <typename T>
 void Queue<T>::move_to_st2() {
