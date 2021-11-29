@@ -30,6 +30,6 @@ endif()
 
 add_subdirectory("tests")
 
-if (BENCHMARK)
+if (ADD_BENCHMARK)
     add_subdirectory("Queues/benchmark")
 endif()
