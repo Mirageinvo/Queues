@@ -117,7 +117,7 @@ size_t Queue<T>::size() const {
 
 template <typename T>
 bool Queue<T>::is_empty() const {
-  return (counter_ == 0) ? true : false;
+  return counter_ == 0;
 }
 
 template <typename T>
