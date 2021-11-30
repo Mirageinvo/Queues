@@ -3,10 +3,10 @@
 #include "list_queue_impl.hpp"
 #include "stack_queue_impl.hpp"
 
-const int kStart = 1;
-const int kFinish = 10;
-const int kStep = 1;
-const int kNumofpushes = 1e6;
+static const int kStart = 1;
+static const int kFinish = 10;
+static const int kStep = 1;
+static const int kNumofpushes = 1e6;
 
 static void BM_Stack_Queue(benchmark::State& state) {
   for (auto _ : state) {

@@ -3,11 +3,11 @@
 #include "stack_queue_impl.hpp"
 
 #ifdef STACK_IMPL
-using namespace stack_queue;
+using stack_queue::Queue;
 #endif
 
 #ifdef LIST_IMPL
-using namespace list_queue;
+using list_queue::Queue;
 #endif
 
 const int kNum = 1e5;
@@ -28,15 +28,7 @@ TEST(IntQueue, SizeTest) {
   EXPECT_EQ(q.size(), 2);
 }
 
-TEST(IntQueue, PushTest) {
-  Queue<int> q;
-  for (int i = 0; i < kNum; ++i) {
-    q.push(i);
-    ASSERT_EQ(q.back(), i);
-  }
-}
-
-TEST(IntQueue, BackTest) {
+TEST(IntQueue, PushBackTest) {
   Queue<int> q;
   for (int i = 0; i < kNum; ++i) {
     q.push(i);
