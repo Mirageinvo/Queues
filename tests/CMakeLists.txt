@@ -16,8 +16,8 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_definitions(-DLIST_IMPL)
 add_executable(${EXEC_FILE_L} tests.cpp)
+target_compile_definitions(${EXEC_FILE_L} PUBLIC -DLIST_IMPL)
 target_link_libraries(${EXEC_FILE_L} gtest_main)
 target_include_directories(${EXEC_FILE_L} PUBLIC ${INCL_PATH})
 
@@ -31,9 +31,8 @@ add_custom_target(
 )
 add_dependencies(${TEST_FILE_L} ${EXEC_FILE_L})
 
-remove_definitions(-DLIST_IMPL)
-add_definitions(-DSTACK_IMPL)
 add_executable(${EXEC_FILE_S} tests.cpp)
+target_compile_definitions(${EXEC_FILE_S} PUBLIC -DSTACK_IMPL)
 target_link_libraries(${EXEC_FILE_S} gtest_main)
 target_include_directories(${EXEC_FILE_S} PUBLIC ${INCL_PATH})
 
