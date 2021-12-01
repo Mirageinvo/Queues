@@ -20,14 +20,6 @@ set(CMAKE_CXX_CLANG_TIDY
     --header-filter=*.hpp;
 )
 
-if (LIST_IMPL)
-    add_definitions(-DLIST_IMPL)
-endif()
-
-if (STACK_IMPL)
-    add_definitions(-DSTACK_IMPL)
-endif()
-
 add_subdirectory("tests")
 
 if (BENCHMARK)

@@ -26,23 +26,22 @@ gtest_discover_tests(${EXEC_FILE_L})
 
 add_custom_target(
     ${TEST_FILE_L}
-    COMMENT "Running tests for queue"
+    COMMENT "Running tests for \"list\" queue"
     COMMAND ./${EXEC_FILE_L}
 )
 add_dependencies(${TEST_FILE_L} ${EXEC_FILE_L})
-remove_definitions(-DLIST_IMPL)
 
+remove_definitions(-DLIST_IMPL)
 add_definitions(-DSTACK_IMPL)
 add_executable(${EXEC_FILE_S} tests.cpp)
 target_link_libraries(${EXEC_FILE_S} gtest_main)
 target_include_directories(${EXEC_FILE_S} PUBLIC ${INCL_PATH})
 
-#include(GoogleTest)
 gtest_discover_tests(${EXEC_FILE_S})
 
 add_custom_target(
     ${TEST_FILE_S}
-    COMMENT "Running tests for queue"
+    COMMENT "Running tests for \"stack\" queue"
     COMMAND ./${EXEC_FILE_S}
 )
 add_dependencies(${TEST_FILE_S} ${EXEC_FILE_S})
@@ -50,9 +49,6 @@ add_dependencies(${TEST_FILE_S} ${EXEC_FILE_S})
 if (ADD_SANITIZERS)
     target_compile_options(${EXEC_FILE_L} PUBLIC -fsanitize=address -g)
     set_target_properties(${EXEC_FILE_L}  PROPERTIES LINK_FLAGS "-fsanitize=address")
-endif()
-
-if (ADD_SANITIZERS)
     target_compile_options(${EXEC_FILE_S} PUBLIC -fsanitize=address -g)
     set_target_properties(${EXEC_FILE_S}  PROPERTIES LINK_FLAGS "-fsanitize=address")
 endif()
