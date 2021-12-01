@@ -7,11 +7,8 @@ In this project stacks have been taken from: https://github.com/Mirageinvo/Stack
 ```
 mkdir build && cd build/
 
-\\to build tests with two-stacks-based queue:\\
-cmake -DSTACK_IMPL=1 .. && make
-
-\\to build test with single-linked-list-based queue:\\
-cmake -DLIST_IMPL=1 .. && make
+\\to build tests with either queue implementations:\\
+cmake .. && make
 
 \\to add sanitizers to tests:\\
 -DADD_SANITIZERS=1
@@ -19,8 +16,11 @@ cmake -DLIST_IMPL=1 .. && make
 \\or if user has Google Benchmark installed they can try:\\
 -DBENCHMARK=1
 
-\\to run tests for chosen queue implementation:\\
-make run_tests_for_queues
+\\to run tests for stack queue implementation:\\
+make run_tests_for_stack_queue
+
+\\to run tests for list queue implementation:\\
+make run_tests_for_list_queue
 
 \\to run Google Benchmark for either queue implementations(if only Google Benchmark is installed):\\
 make run_queues_benchmark
