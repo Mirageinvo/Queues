@@ -1,8 +1,8 @@
 #ifndef QUEUES_INCLUDES_STACK_QUEUE
 #define QUEUES_INCLUDES_STACK_QUEUE
 
-#include "Stack/Stack.hpp"
-#include "Stack/Stack_impl.hpp"
+#include "../../Stack/Stack.hpp"
+#include "../../Stack/Stack_impl.hpp"
 
 namespace stack_queue {
 
