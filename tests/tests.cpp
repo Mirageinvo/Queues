@@ -28,7 +28,7 @@ TEST(IntQueue, SizeTest) {
   EXPECT_EQ(q.size(), 2);
 }
 
-TEST(IntQueue, PushBackTest) {
+TEST(IntQueue, PushAndBackTest) {
   Queue<int> q;
   for (int i = 0; i < kNum; ++i) {
     q.push(i);
